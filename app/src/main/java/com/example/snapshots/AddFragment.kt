@@ -1,21 +1,32 @@
 package com.example.snapshots
 
+import android.app.Activity
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.snapshots.databinding.FragmentAddBinding
 
 
 class AddFragment : Fragment() {
 
-    private val RC_GALLERY = 18
+    //private val RC_GALLERY = 18
 
     private lateinit var mBinding: FragmentAddBinding
 
     private var mPhotoSelectedUri: Uri? = null
+
+    private val galleryResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if(it.resultCode == Activity.RESULT_OK){
+            mPhotoSelectedUri = it.data?.data
+            mBinding.imgPhoto.setImageURI(mPhotoSelectedUri)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,12 +44,24 @@ class AddFragment : Fragment() {
     }
 
     private fun openGallery() {
-
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        //startActivityForResult(intent,RC_GALLERY)
+        galleryResult.launch(intent)
     }
 
     private fun postSnapshot() {
 
     }
+
+ /*   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == RC_GALLERY){
+                mPhotoSelectedUri = data?.data
+                mBinding.imgPhoto.setImageURI(mPhotoSelectedUri)
+            }
+        }
+    }*/
 
 
 }
