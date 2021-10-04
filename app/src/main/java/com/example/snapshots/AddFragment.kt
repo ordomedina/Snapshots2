@@ -25,6 +25,8 @@ class AddFragment : Fragment() {
         if(it.resultCode == Activity.RESULT_OK){
             mPhotoSelectedUri = it.data?.data
             mBinding.imgPhoto.setImageURI(mPhotoSelectedUri)
+            mBinding.tilTitle.visibility = View.VISIBLE
+            mBinding.tvMessage.text = getString(R.string.post_message_valid_title)
         }
     }
 
