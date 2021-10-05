@@ -42,7 +42,7 @@ class HomeFragment : Fragment() {
         val options = FirebaseRecyclerOptions.Builder<Snapshot>()
             .setQuery(query, Snapshot::class.java).build()
 
-        mFirebaseAdapter = object : FirebaseRecyclerAdapter<Snapshot, SnapshotHolder>(options){
+        mFirebaseAdapter = object : FirebaseRecyclerAdapter<Snapshot, SnapshotHolder>(options) {
             private lateinit var mContext: Context
 
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SnapshotHolder {
@@ -56,7 +56,7 @@ class HomeFragment : Fragment() {
             override fun onBindViewHolder(holder: SnapshotHolder, position: Int, model: Snapshot) {
                 val snapshot = getItem(position)
 
-                with(holder){
+                with(holder) {
                     setListener(snapshot)
 
                     binding.tvTitle.text = snapshot.title
@@ -98,10 +98,10 @@ class HomeFragment : Fragment() {
         mFirebaseAdapter.stopListening()
     }
 
-    inner class SnapshotHolder(view: View) : RecyclerView.ViewHolder(view){
+    inner class SnapshotHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemSnapshotBinding.bind(view)
 
-        fun setListener(snapshot: Snapshot){
+        fun setListener(snapshot: Snapshot) {
 
         }
     }
