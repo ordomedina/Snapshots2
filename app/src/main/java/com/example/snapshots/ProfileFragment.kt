@@ -29,6 +29,7 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mBinding.tvName.text = FirebaseAuth.getInstance().currentUser?.displayName
+
         mBinding.tvEmail.text = FirebaseAuth.getInstance().currentUser?.email
 
         mBinding.btnLogout.setOnClickListener { signOut() }
